@@ -6,6 +6,8 @@ SoundCloud recommendation app
 
 Links
 =============
+github link - https://github.com/gopher-snakes-2013/DirtyHipsters
+
 heroku link - dirtyhipster.herokuapp.com
 
 soundcloud api docs - http://developers.soundcloud.com/docs
