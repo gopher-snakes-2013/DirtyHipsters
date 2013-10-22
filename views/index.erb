@@ -1,0 +1,15 @@
+Yolo!
+
+<p>Welcome <%= @client.get('/me').username %> </p>
+<p><img src='<%=@client.get('/me').avatar_url%>'> </p>
+
+<p>My tracks: </p>
+<% @tracks.each do |track| %>
+  <li><a href="<%=track.permalink_url%>"> <%=track.title%></a></li>
+<% end %>
+
+<br>
+<p>Following: </p>
+<% @following.each do |follower| %>
+  <li><a href="<%= follower.uri %>"><%= follower.full_name%></a></li>
+<% end %>
