@@ -11,5 +11,5 @@ Yolo!
 <br>
 <p>Following: </p>
 <% @following.each do |follower| %>
-  <li><a href="<%= follower.uri %>"><%= follower.full_name%></a></li>
+  <li><a href="<%= follower.permalink_url %>"><%= follower.username%></a></li>
 <% end %>
