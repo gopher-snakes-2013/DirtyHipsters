@@ -38,3 +38,12 @@ get '/auth' do
   session[:user_token] = access_token
   redirect '/'
 end
+
+get '/soundcloud'do
+  redirect "http://www.soundcloud.com"
+end
+
+get '/logout' do
+  session.clear
+  redirect "http://soundcloud.com"
+end
