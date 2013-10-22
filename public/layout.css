@@ -1,0 +1,54 @@
+@font-face {
+	font-family: HoneyScript;
+	src: url('HoneyScript-SemiBold.eot'); /* EOT file for IE */
+}
+
+@font-face {
+	font-family: HoneyScript;
+	src: url('HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
+}
+
+hr {
+	height: 1px;
+	width: 85%;
+	background-color: #414141;
+}
+
+img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	border-radius: 110px; 
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 4px solid #414141;
+}
+
+#title {
+	font-family: HoneyScript;
+	color: DarkSlateGray;
+	text-align: center;
+	font-size: 200%;
+}
+
+ul {
+	margin: 0 auto;
+	text-align: center;
+	padding: 5px;
+	
+}
+li {
+	font-family: HoneyScript;
+	padding: 0px 10px 0px 10px;
+  display: inline;
+}
+.column_1 {
+  float:left;
+  max-width: 50%;
+}
+
+.column_2 {
+  float:right;
+  max-width: 45%;
+}
