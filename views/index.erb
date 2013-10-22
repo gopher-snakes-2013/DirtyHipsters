@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="layout.css" media="screen"/>
+</head>
+
+<body>
+	<div id="navbar"> 
+		<ul> 
+			<li><a><%= @client.get('/me').username %></a></li> 
+			<li><a href="/soundcloud">Soundcloud</a></li> 
+			<li><a href="/logout">Logout</a></li> 
+		</ul> 
+	</div> 
+	<img src="http://www.cluttermagazine.com/sites/default/files/imagecache/news_big_image/mustaceh.jpg" alt="mustache_logo" alt="mustache_logo">
+	<div id="title">
+		<h1>dirty hipster</h1>
+	</div>
+	<hr/>
+
+	<div class="column_1">
+		<ul>
+			<li id="first"><a href="#">bio</a></li>
+			<li><a href="#">tours</a></li>
+			<li><a href="#">discography</a></li>
+		</ul>
+		<p>Banjo Austin four loko, vinyl trust fund cray jean shorts Williamsburg Helvetica authentic umami viral ethical. Actually Helvetica gentrify, locavore freegan ennui pickled. Wayfarers stumptown swag, single-origin coffee disrupt +1 tofu Blue Bottle Neutra art party scenester blog. Jean shorts vegan Pitchfork distillery before they sold out, occupy asymmetrical Brooklyn church-key flexitarian semiotics meh fingerstache. Food truck skateboard shabby chic asymmetrical, letterpress authentic plaid McSweeney's seitan fixie 8-bit sriracha gluten-free Bushwick swag. Wolf cornhole ethical, Odd Future polaroid salvia meh street art vinyl keytar McSweeney's pickled. Semiotics Intelligentsia Terry Richardson, swag Cosby sweater try-hard shabby chic twee farm-to-table DIY ethical.</p>
+	</div>
+	<div class="column_2">
+		<form class="form-wrapper cf">
+        <input type="text" required>
+        <button type="submit">Search</button>
+    </form>   
+	<p>Quinoa bitters pickled, blog Odd Future mlkshk cornhole keffiyeh mustache. 90's McSweeney's viral Tonx banh mi. Next level chambray leggings, mustache Odd Future hashtag retro umami distillery PBR&B Carles lomo cardigan master cleanse. Sriracha retro mumblecore occupy mixtape locavore, church-key Godard keytar meh 90's actually. Messenger bag before they sold out paleo skateboard, brunch Tumblr Thundercats sustainable Echo Park chambray ugh Marfa. Banh mi plaid aesthetic High Life dreamcatcher. Master cleanse gentrify food truck, letterpress Cosby sweater PBR wolf Carles pop-up American Apparel Tonx Thundercats iPhone.</p>
+</div>
+</body>
+
+</html>
+
+<!-- <p><img src='<%=@client.get('/me').avatar_url%>'> </p> user avatar code-->

@@ -4,7 +4,8 @@ ruby '1.9.3'
 
 gem 'sinatra'
 gem 'sinatra-activerecord'
-gem 'pg'
+gem 'soundcloud'
+gem 'thin'
 
 group :development, :test do
   gem 'shotgun'
@@ -13,4 +14,9 @@ group :development, :test do
   gem 'rspec'
   gem 'capybara'
   gem 'jasmine'
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
 end
