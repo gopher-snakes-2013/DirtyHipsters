@@ -1,21 +1,34 @@
-DirtyHipsters
+#DirtyHipsters
 =============
+SoundCloud recommendation app. 
 
-SoundCloud recommendation app
 
-
-Links
+##Links
 =============
-github link - https://github.com/gopher-snakes-2013/DirtyHipsters
+###github link 
+https://github.com/gopher-snakes-2013/DirtyHipsters
 
-heroku link - dirtyhipster.herokuapp.com
+###heroku link
+dirtyhipster.herokuapp.com
 
-soundcloud api docs - http://developers.soundcloud.com/docs
+###soundcloud api docs
+http://developers.soundcloud.com/docs
 
-codeacademy - http://www.codecademy.com/tracks/soundcloud
+###codeacademy
+http://www.codecademy.com/tracks/soundcloud
 
-codingforgood - http://cfg.good.is/lessons/soundcloud-api
+###codingforgood
+http://cfg.good.is/lessons/soundcloud-api
 
-coding for good video - http://www.youtube.com/watch?v=8TuqjGxosrc
+###coding for good video
+http://www.youtube.com/watch?v=8TuqjGxosrc
 
-html5 widget blog post - http://developers.soundcloud.com/blog/html5-widget-api
+###html5 widget blog post
+http://developers.soundcloud.com/blog/html5-widget-api
+
+###official soundcloud github (player)
+https://github.com/soundcloud/soundcloud-custom-player/wiki
+
+###sinatra/soundcloud gist
+https://gist.github.com/kgrz/4523645
+
