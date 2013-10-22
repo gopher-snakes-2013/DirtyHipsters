@@ -1,11 +1,16 @@
 @font-face {
 	font-family: HoneyScript;
-	src: url('HoneyScript-SemiBold.eot'); /* EOT file for IE */
+	src: url('HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
 }
 
 @font-face {
-	font-family: HoneyScript;
-	src: url('HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
+	font-family:Walkway_SemiBold;
+	src: url('Walkway_SemiBold.ttf');
+}
+
+@font-face {
+	font-family: Mido;
+	src: url('Mido.otf');
 }
 
 hr {
@@ -36,19 +41,31 @@ ul {
 	margin: 0 auto;
 	text-align: center;
 	padding: 5px;
-	
+
+}
+
+#first {
+	border-left: none;
 }
 li {
-	font-family: HoneyScript;
-	padding: 0px 10px 0px 10px;
+	font-family: Walkway_SemiBold;
+	padding: 0px 25px 0px 30px;
   display: inline;
+  border-left: 1px solid;
 }
+
+a:link {
+	text-decoration: none;
+}
+
 .column_1 {
+	font-family: Walkway_SemiBold;
   float:left;
   max-width: 50%;
 }
 
 .column_2 {
+	font-family: Walkway_SemiBold;
   float:right;
   max-width: 45%;
 }
