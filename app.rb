@@ -8,27 +8,61 @@ Dotenv.load(".env")
 set :database, 'sqlite:///dev.db'
 enable :sessions
 
-def client_creator
-  client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
-                        :client_secret => ENV['SOUNDCLOUD_SECRET'],
-                        :redirect_uri => 'http://localhost:9393/auth')
+helpers do
+  def client_creator
+    client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
+      :client_secret => ENV['SOUNDCLOUD_SECRET'],
+      :redirect_uri => 'http://localhost:9393/auth')
+  end
+
+  def logged_in?
+    session[:user_token] != nil
+  end
+
+  def set_active_client(user_token)
+    Soundcloud.new(:access_token => user_token)
+  end
+
+  def collect_client_favorited_tracks
+    @client.get('/me/favorites')
+  end
+
+  def populate_favorites_ids
+    @favorites.each do |favorite|
+      @favorites_ids << favorite.id
+    end
+  end
+
+  def make_fav_ids_array_of_hashes
+    @favorites_ids.map! { |id| {:id => id} }
+  end
+
+  def get_client_username(client)
+    client.get('/me').username
+  end
+
+  def post_new_playlist(client)
+    client.post('/playlists', :playlist => {
+      :title => 'Favorites',
+      :sharing => 'private',
+      :tracks => @favorites_ids
+      })
+  end
 end
 
 get '/' do
-  if session[:user_token]
+  if logged_in?
     #this is how dirtyhipster knows who's logged in
-    @client = Soundcloud.new(:access_token => session[:user_token])
-    @my_favorites= @client.get('/me/favorites')
+    @client = set_active_client(session[:user_token])
+    @favorites= collect_client_favorited_tracks
     @favorites_ids = []
 
     #grab track id of each favorite
-    @my_favorites.each do |favorite|
-      @favorites_ids << favorite.id
-    end
+    populate_favorites_ids
 
-    if session[:searched_user_id]
-
-    end
+    #dynamic playlist creation
+    make_fav_ids_array_of_hashes
+    post_new_playlist(@client)
 
     #dynamic playlist creation
     # @favorites_ids.map! { |id| {:id => id} }
@@ -37,8 +71,6 @@ get '/' do
     #   :sharing => 'public',
     #   :tracks => @favorites_ids
     # })
-
-
 
     #grab people that you're following
     @following = @client.get('/me/followings')
@@ -84,7 +116,7 @@ get '/auth' do
 end
 
 get '/soundcloud'do
-  redirect "http://www.soundcloud.com"
+redirect "http://www.soundcloud.com"
 end
 
 get '/logout' do

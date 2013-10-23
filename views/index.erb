@@ -8,7 +8,7 @@
 <body>
 	<div id="navbar">
 		<ul>
-			<li><a><%= @client.get('/me').username %></a></li>
+			<li><a><%= get_client_username(@client) %></a></li>
 			<li><a href="/soundcloud">Soundcloud</a></li>
 			<li><a href="/logout">Logout</a></li>
 		</ul>
