@@ -6,13 +6,13 @@
 </head>
 
 <body>
-	<div id="navbar"> 
-		<ul> 
-			<li><a><%= @client.get('/me').username %></a></li> 
-			<li><a href="/soundcloud">Soundcloud</a></li> 
-			<li><a href="/logout">Logout</a></li> 
-		</ul> 
-	</div> 
+	<div id="navbar">
+		<ul>
+			<li><a><%= active_user.get('/me').username %></a></li>
+			<li><a href="/soundcloud">Soundcloud</a></li>
+			<li><a href="/logout">Logout</a></li>
+		</ul>
+	</div>
 	<img src="http://www.cluttermagazine.com/sites/default/files/imagecache/news_big_image/mustaceh.jpg" alt="mustache_logo" alt="mustache_logo">
 	<div id="title">
 		<h1>dirty hipster</h1>
@@ -31,7 +31,7 @@
 		<form class="form-wrapper cf">
         <input type="text" required>
         <button type="submit">Search</button>
-    </form>   
+    </form>
 	<p>Quinoa bitters pickled, blog Odd Future mlkshk cornhole keffiyeh mustache. 90's McSweeney's viral Tonx banh mi. Next level chambray leggings, mustache Odd Future hashtag retro umami distillery PBR&B Carles lomo cardigan master cleanse. Sriracha retro mumblecore occupy mixtape locavore, church-key Godard keytar meh 90's actually. Messenger bag before they sold out paleo skateboard, brunch Tumblr Thundercats sustainable Echo Park chambray ugh Marfa. Banh mi plaid aesthetic High Life dreamcatcher. Master cleanse gentrify food truck, letterpress Cosby sweater PBR wolf Carles pop-up American Apparel Tonx Thundercats iPhone.</p>
 </div>
 </body>
