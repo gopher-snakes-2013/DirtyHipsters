@@ -8,18 +8,29 @@ Dotenv.load(".env")
 set :database, 'sqlite:///dev.db'
 enable :sessions
 
+def logged_in?
+  session[:user_token] ? true : false
+end
+
+def active_user
+  @client ||= Soundcloud.new(:access_token => session[:user_token])
+end
+
+def user_profile_info(user)
+  @user_tracks= user.get('/me/tracks')
+  @following_others = user.get('/me/followings')
+end
+
 def client_creator
-  client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
+  new_client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
                         :client_secret => ENV['SOUNDCLOUD_SECRET'],
                         :redirect_uri => 'http://localhost:9393/auth')
 end
 
-get '/' do
-  if session[:user_token]
-    @client = Soundcloud.new(:access_token => session[:user_token])
-    @tracks= @client.get('/me/tracks')
-    @following = @client.get('/me/followings')
 
+get '/' do
+  if logged_in?
+    user_profile_info(active_user)
     erb :index
   else
     erb :login
@@ -33,9 +44,7 @@ get '/login' do
 end
 
 get '/auth' do
-  client = client_creator
-  access_token = client.exchange_token(:code => params[:code]).access_token
-  session[:user_token] = access_token
+  session[:user_token] = client_creator.exchange_token(:code => params[:code]).access_token
   redirect '/'
 end
 
