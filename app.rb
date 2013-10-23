@@ -2,24 +2,19 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'dotenv'
 require 'soundcloud'
+require './soundcloud_helper'
 
 Dotenv.load(".env")
 
 set :database, 'sqlite:///dev.db'
 enable :sessions
-
-def client_creator
-  client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
-                        :client_secret => ENV['SOUNDCLOUD_SECRET'],
-                        :redirect_uri => 'http://localhost:9393/auth')
+helpers do
+  include SoundCloudHelper
 end
 
 get '/' do
-  if session[:user_token]
-    @client = Soundcloud.new(:access_token => session[:user_token])
-    @tracks= @client.get('/me/tracks')
-    @following = @client.get('/me/followings')
-
+  if logged_in?
+    fetch_soundcloud_tracks_and_followings
     erb :index
   else
     erb :login
@@ -27,23 +22,19 @@ get '/' do
 end
 
 get '/login' do
-  # create client object with app credentials
-  client = client_creator
-  redirect client.authorize_url()
+  soundcloud_authorization
 end
 
 get '/auth' do
-  client = client_creator
-  access_token = client.exchange_token(:code => params[:code]).access_token
-  session[:user_token] = access_token
+  set_session_user_token
   redirect '/'
 end
 
 get '/soundcloud'do
-  redirect "http://www.soundcloud.com"
+  soundcloud_redirect
 end
 
 get '/logout' do
   session.clear
-  redirect "http://soundcloud.com"
+  soundcloud_redirect
 end
