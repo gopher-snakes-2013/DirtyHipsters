@@ -12,9 +12,26 @@ enable :sessions
 get '/' do
   if session[:user_token]
     @client = Soundcloud.new(:access_token => session[:user_token])
-    @tracks= @client.get('/me/tracks')
-    p @following = @client.get('/me/followings')
+    @favorites= @client.get('/me/favorites')
+    @favorites_ids = []
 
+    @favorites.each do |favorite|
+      @favorites_ids << favorite.id
+    end
+
+    @following = @client.get('/me/followings')
+    @following_ids = []
+
+    @following.each do |followee|
+      @following_ids << followee.id
+    end
+
+    @favorites_ids.map! { |id| {:id => id} }
+    @client.post('/playlists', :playlist => {
+      :title => 'Favorites',
+      :sharing => 'public',
+      :tracks => @favorites_ids
+    })
     erb :index
   else
     erb :login
