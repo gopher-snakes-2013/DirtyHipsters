@@ -18,31 +18,27 @@ get '/' do
   if session[:user_token]
     #this is how dirtyhipster knows who's logged in
     @client = Soundcloud.new(:access_token => session[:user_token])
-    @favorites= @client.get('/me/favorites')
+    @my_favorites= @client.get('/me/favorites')
     @favorites_ids = []
 
     #grab track id of each favorite
-    @favorites.each do |favorite|
+    @my_favorites.each do |favorite|
       @favorites_ids << favorite.id
     end
 
-    #dynamic playlist creation
-    @favorites_ids.map! { |id| {:id => id} }
-    @client.post('/playlists', :playlist => {
-      :title => 'Favorites',
-      :sharing => 'public',
-      :tracks => @favorites_ids
-    })
+    if session[:searched_user_id]
 
-    #searches through soundcloud for user
-    @searched_users_array = @client.get('/users', :q => 'trostli')
-
-    #iterate through that array to grab exact username match
-    @searched_users_array.each do |user|
-      if user.username == 'trostli'
-        p user.id
-      end
     end
+
+    #dynamic playlist creation
+    # @favorites_ids.map! { |id| {:id => id} }
+    # @client.post('/playlists', :playlist => {
+    #   :title => 'Favorites',
+    #   :sharing => 'public',
+    #   :tracks => @favorites_ids
+    # })
+
+
 
     #grab people that you're following
     @following = @client.get('/me/followings')
@@ -59,6 +55,19 @@ get '/' do
   else
     erb :login
   end
+end
+
+post '/search' do
+  client = client_creator
+  #searches through soundcloud for us
+  search_term = params[:query]
+  searched_users_array = client.get('/users', :q => search_term)
+  searched_users_array.each do |user|
+    if user.username == search_term
+      session[:searched_user_id] = user.id
+    end
+  end
+  redirect '/'
 end
 
 get '/login' do
