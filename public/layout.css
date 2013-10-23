@@ -1,11 +1,11 @@
 @font-face {
 	font-family: HoneyScript;
-	src: url('HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
+	src: url('font/HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
 }
 
 @font-face {
 	font-family:Walkway_SemiBold;
-	src: url('Walkway_SemiBold.ttf');
+	src: url('font/Walkway_SemiBold.ttf');
 }
 
 #navbar ul { 
@@ -51,7 +51,7 @@ img {
 }
 
 #title {
-	font-family: HoneyScript;
+	font-family: 'HoneyScript';
 	color: DarkSlateGray;
 	text-align: center;
 	font-size: 200%;
