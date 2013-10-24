@@ -163,9 +163,9 @@ a:link {
     cursor: pointer;
     height: 40px;
     width: 110px;
-    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    font: 15px/40px 'Walkway_SemiBold';
     color: #fff;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     background: #d83c3c;
     border-radius: 0 3px 3px 0;      
     text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
