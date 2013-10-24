@@ -70,6 +70,7 @@ get '/' do
     fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
     post_new_playlist(@client, fav_ids_array_of_hashes)
 
+    #dynamic playlist creation of searched user's favorites
     if search_submitted?
       user_favs = collect_user_favorited_tracks(session[:searched_user_id])
       user_favs_ids = grab_favorites_ids(user_favs)
@@ -90,6 +91,8 @@ post '/search' do
   #searches through soundcloud for us
   search_term = params[:query]
   searched_users_array = client.get('/users', :q => search_term)
+
+  #parses id out of returned hashie
   searched_users_array.each do |user|
     if user.username == search_term
       session[:searched_user_id] = user.id
