@@ -19,6 +19,10 @@ helpers do
     session[:user_token] != nil
   end
 
+  def search_submitted?
+    session[:searched_user_id] != nil
+  end
+
   def set_active_client(user_token)
     Soundcloud.new(:access_token => user_token)
   end
@@ -27,25 +31,31 @@ helpers do
     @client.get('/me/favorites')
   end
 
-  def populate_favorites_ids
-    @favorites.each do |favorite|
-      @favorites_ids << favorite.id
-    end
+  def collect_user_favorited_tracks(user_id)
+    @client.get("/users/#{user_id}/favorites")
   end
 
-  def make_fav_ids_array_of_hashes
-    @favorites_ids.map! { |id| {:id => id} }
+  def grab_favorites_ids(favorite_array)
+    favorites_ids = []
+    favorite_array.each do |favorite|
+      favorites_ids << favorite.id
+    end
+    return favorites_ids
+  end
+
+  def make_fav_ids_array_of_hashes(favorites_ids)
+    favorites_ids.map! { |id| {:id => id} }
   end
 
   def get_client_username(client)
     client.get('/me').username
   end
 
-  def post_new_playlist(client)
+  def post_new_playlist(client, track_ids)
     client.post('/playlists', :playlist => {
       :title => 'Favorites',
-      :sharing => 'private',
-      :tracks => @favorites_ids
+      :sharing => 'public',
+      :tracks => track_ids
       })
   end
 end
@@ -54,35 +64,21 @@ get '/' do
   if logged_in?
     #this is how dirtyhipster knows who's logged in
     @client = set_active_client(session[:user_token])
-    @favorites= collect_client_favorited_tracks
-    @favorites_ids = []
-
-    #grab track id of each favorite
-    populate_favorites_ids
+    client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
 
     #dynamic playlist creation
-    make_fav_ids_array_of_hashes
-    post_new_playlist(@client)
+    fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
+    post_new_playlist(@client, fav_ids_array_of_hashes)
 
-    #dynamic playlist creation
-    # @favorites_ids.map! { |id| {:id => id} }
-    # @client.post('/playlists', :playlist => {
-    #   :title => 'Favorites',
-    #   :sharing => 'public',
-    #   :tracks => @favorites_ids
-    # })
-
-    #grab people that you're following
-    @following = @client.get('/me/followings')
-    @following_ids = []
-
-    #push following's ids into array
-    @following.each do |followee|
-      @following_ids << followee.id
+    if search_submitted?
+      user_favs = collect_user_favorited_tracks(session[:searched_user_id])
+      user_favs_ids = grab_favorites_ids(user_favs)
+      track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
+      post_new_playlist(@client, track_ids)
     end
 
     #grabs uri for the iframe widget
-    @last_playlist_uri = @client.get('/me/playlists').last.uri
+    @last_playlist_uri = @client.get('/me/playlists').first.uri
     erb :index
   else
     erb :login
