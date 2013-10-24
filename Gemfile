@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'soundcloud'
 gem 'thin'
+gem 'typhoeus', '0.4.2'
 
 group :development, :test do
   gem 'shotgun'
@@ -15,6 +16,7 @@ group :development, :test do
   gem 'capybara'
   gem 'jasmine'
   gem 'sqlite3'
+  gem 'vcr', '2.2.5'
 end
 
 group :production do

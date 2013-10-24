@@ -79,6 +79,7 @@ get '/' do
 
     #grabs uri for the iframe widget
     @last_playlist_uri = @client.get('/me/playlists').first.uri
+    puts @last_playlist_uri
     erb :index
   else
     erb :login
@@ -87,6 +88,7 @@ end
 
 post '/search' do
   client = client_creator
+
   #searches through soundcloud for us
   search_term = params[:query]
   searched_users_array = client.get('/users', :q => search_term)
