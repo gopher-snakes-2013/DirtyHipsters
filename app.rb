@@ -51,9 +51,9 @@ helpers do
     client.get('/me').username
   end
 
-  def post_new_playlist(client, track_ids)
+  def post_new_playlist(client, track_ids, query)
     client.post('/playlists', :playlist => {
-      :title => 'Favorites',
+      :title => 'DirtyHipster.co - ' + query + ' inspired playlist',
       :sharing => 'public',
       :tracks => track_ids
       })
@@ -68,13 +68,13 @@ get '/' do
 
     #dynamic playlist creation
     fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
-    post_new_playlist(@client, fav_ids_array_of_hashes)
+    post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
 
     if search_submitted?
       user_favs = collect_user_favorited_tracks(session[:searched_user_id])
       user_favs_ids = grab_favorites_ids(user_favs)
       track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
-      post_new_playlist(@client, track_ids)
+      post_new_playlist(@client, track_ids, session[:query])
     end
 
     #grabs uri for the iframe widget
@@ -89,6 +89,8 @@ post '/search' do
   client = client_creator
   #searches through soundcloud for us
   search_term = params[:query]
+  session[:query] = params[:query]
+
   searched_users_array = client.get('/users', :q => search_term)
   searched_users_array.each do |user|
     if user.username == search_term
