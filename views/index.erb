@@ -30,6 +30,11 @@
 	<div class="column_2">
 		<form method='POST' action='/search' class="form-wrapper cf">
         <input name="query" type="text" required>
+        <select name='filter'>
+					<option value='clean'>Clean</option>
+					<option value='scruffy'>Scruffy</option>
+					<option value='dirty'>Dirty</option>
+        </select>
         <button type="submit">Search</button>
     </form>
 
