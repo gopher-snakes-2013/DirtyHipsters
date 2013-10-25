@@ -10,30 +10,30 @@
 		<h1>dirty hipster</h1>
 	</div>
 	<hr/>
-
+	<%= flash[:no_favs] %>
+	<%= flash[:no_filtered_favs] %>
 	<div class="column_1">
 		<ul>
 			<li id="first"><a href="#">bio</a></li>
 			<li><a href="#">tours</a></li>
 			<li><a href="#">discography</a></li>
 		</ul>
-		<p>Banjo Austin four loko, vinyl trust fund cray jean shorts Williamsburg Helvetica authentic umami viral ethical. Actually Helvetica gentrify, locavore freegan ennui pickled. Wayfarers stumptown swag, single-origin coffee disrupt +1 tofu Blue Bottle Neutra art party scenester blog. Jean shorts vegan Pitchfork distillery before they sold out, occupy asymmetrical Brooklyn church-key flexitarian semiotics meh fingerstache. Food truck skateboard shabby chic asymmetrical, letterpress authentic plaid McSweeney's seitan fixie 8-bit sriracha gluten-free Bushwick swag. Wolf cornhole ethical, Odd Future polaroid salvia meh street art vinyl keytar McSweeney's pickled. Semiotics Intelligentsia Terry Richardson, swag Cosby sweater try-hard shabby chic twee farm-to-table DIY ethical.</p>
+		<p id="info"></p>
 	</div>
 	<div class="column_2">
 		<form method='POST' action='/search' class="form-wrapper cf">
-		<p id="instructions">Choose your level of hipster:</p>
-        <div class="styled-select">
-        <select name='filter'>
+			<p id="instructions">Choose your level of hipster:</p>
+			<div class="styled-select">
+				<select name='filter'>
 					<option id='filters' value='clean'>Clean</option>
 					<option id='filters' value='scruffy'>Scruffy</option>
 					<option id='filters' value='dirty'>Dirty</option>
-        </select>
-      </div>
-        <input name="query" type="text" placeholder="Search username of artist..." required>
-        <button type="submit">Search</button>
-    </form>
+				</select>
+			</div>
+			<input name="query" type="text" placeholder="Search username of artist..." required>
+			<button type="submit">Search</button>
+		</form>
 
-		<!--w.soundcloud part creates the widget, last_playlist_uri is the last playlist created by the user-->
 		<div id='player'>
 			<iframe class='iframe' width='100%' height='465' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=<%= @last_playlist_uri %>'></iframe>
 		</div>

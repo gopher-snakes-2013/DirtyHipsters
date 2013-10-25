@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'soundcloud'
 gem 'thin'
+gem 'sinatra-flash'
 
 group :development, :test do
   gem 'shotgun'
