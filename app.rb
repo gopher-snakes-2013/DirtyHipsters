@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'dotenv'
 require 'soundcloud'
-require 'pry'
+require 'sinatra/flash'
 
 Dotenv.load(".env")
 
@@ -75,22 +75,19 @@ helpers do
   def filter_favs_by_fav_count(fav_array, fav_max_count)
     filtered_favs = []
     if fav_array.length > 0
-
-      #do loop
-      fav_array.each do |favorite|
-        if favorite.favoritings_count < fav_max_count
-          filtered_favs << favorite
+        p fav_array
+        fav_array.each do |favorite|
+            if favorite.user_favorite == true && favorite.favoritings_count < fav_max_count
+              filtered_favs << favorite
+            end
         end
-      end
 
-      return filtered_favs
-    # else
-    # flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
+        return filtered_favs
+    else
+      flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
+    end
+
   end
-
-
-
-end
 
 end
 
@@ -132,7 +129,6 @@ post '/search' do
 
   if search_submitted?
     user_favs = collect_user_favorited_tracks(session[:searched_user_id])
-
     if user_favs.length > 0
       filtered_favs = filter_favs_by_fav_count(user_favs, max_fav_count)
 
@@ -167,7 +163,7 @@ get '/auth' do
 end
 
 get '/soundcloud'do
-redirect "http://www.soundcloud.com"
+  redirect "http://www.soundcloud.com"
 end
 
 get '/logout' do

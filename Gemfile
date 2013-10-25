@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'soundcloud'
 gem 'thin'
+gem 'sinatra-flash'
 
 group :development, :test do
   gem 'shotgun'
@@ -15,7 +16,6 @@ group :development, :test do
   gem 'capybara'
   gem 'jasmine'
   gem 'sqlite3'
-  gem 'pry'
 end
 
 group :production do
