@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
 require 'dotenv'
 require 'soundcloud'
 require 'sinatra/flash'
@@ -8,6 +9,8 @@ Dotenv.load(".env")
 
 set :database, 'sqlite:///dev.db'
 enable :sessions
+
+CLIENT = ""
 
 helpers do
   def client_creator
@@ -75,18 +78,15 @@ helpers do
   def filter_favs_by_fav_count(fav_array, fav_max_count)
     filtered_favs = []
     if fav_array.length > 0
-        p fav_array
         fav_array.each do |favorite|
-            if favorite.user_favorite == true && favorite.favoritings_count < fav_max_count
+            if favorite.favoritings_count < fav_max_count
               filtered_favs << favorite
             end
         end
-
-        return filtered_favs
     else
       flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
     end
-
+      return filtered_favs
   end
 
 end
@@ -95,12 +95,6 @@ get '/' do
   if logged_in?
     #this is how dirtyhipster knows who's logged in
     @client = set_active_client(session[:user_token])
-
-    client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
-    #dynamic playlist creation
-    fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
-    post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
-
 
     #grabs uri for the iframe widget
     @last_playlist_uri = @client.get('/me/playlists').first.uri
@@ -134,6 +128,8 @@ post '/search' do
 
       if filtered_favs.length > 0
         user_favs_ids = grab_favorites_ids(filtered_favs)
+        user_favs_ids
+
         track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
         post_new_playlist(@client, track_ids, search_term)
 
