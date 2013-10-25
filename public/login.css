@@ -1,0 +1,42 @@
+@font-face {
+	font-family: HoneyScript;
+	src: url('HoneyScript-SemiBold.ttf'); /* TTF file for CSS3 browsers */
+}
+
+@font-face {
+	font-family:Walkway_SemiBold;
+	src: url('Walkway_SemiBold.ttf');
+}
+
+h1 {
+	font-family: HoneyScript;
+	text-align: center;
+	font-size: 450%;
+	margin: auto;
+	color: DarkSlateGray;
+}
+
+img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	border-radius: 110px; 
+	margin-top: 50px;
+	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 4px solid #414141;
+}
+
+a {
+	font-family: Walkway_SemiBold;
+	font-size: large;
+}
+
+a:link {
+	display: block;
+	margin-right: 52%;
+	margin-left: 48%;
+	text-decoration: none;
+	color: #d83c3c;
+}
