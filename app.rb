@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
 require 'dotenv'
 require 'soundcloud'
 
@@ -73,12 +74,16 @@ helpers do
 
   def filter_favs_by_fav_count(fav_array, fav_max_count)
     filtered_favs = []
-    fav_array.each do |favorite|
-      if favorite.favoritings_count < fav_max_count
-        filtered_favs << favorite
-      end
+    if fav_array.length > 0
+        fav_array.each do |favorite|
+            if favorite.favoritings_count < fav_max_count
+              filtered_favs << favorite
+            end
+        end
+    else
+      flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
     end
-    return filtered_favs
+      return filtered_favs
   end
 
 end
@@ -87,19 +92,6 @@ get '/' do
   if logged_in?
     #this is how dirtyhipster knows who's logged in
     @client = set_active_client(session[:user_token])
-    client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
-
-    #dynamic playlist creation
-    fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
-    post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
-
-    if search_submitted?
-      user_favs = collect_user_favorited_tracks(session[:searched_user_id])
-      filtered_favs = filter_favs_by_fav_count(user_favs, session[:max_fav_count])
-      user_favs_ids = grab_favorites_ids(filtered_favs)
-      track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
-      post_new_playlist(@client, track_ids, session[:query])
-    end
 
     #grabs uri for the iframe widget
     @last_playlist_uri = @client.get('/me/playlists').first.uri
@@ -111,19 +103,39 @@ end
 
 post '/search' do
   client = client_creator
+  #this is how dirtyhipster knows who's logged in
+  @client = set_active_client(session[:user_token])
 
   #grabs value from hipster filter
   max_fav_count = grab_hipster_filter_val(params[:filter])
-  session[:max_fav_count] = max_fav_count
 
   #searches through soundcloud for us
   search_term = params[:query]
-  session[:query] = params[:query]
-
   searched_users_array = client.get('/users', :q => search_term)
   searched_users_array.each do |user|
     if user.username == search_term
       session[:searched_user_id] = user.id
+    end
+  end
+
+  if search_submitted?
+    user_favs = collect_user_favorited_tracks(session[:searched_user_id])
+    if user_favs.length > 0
+      filtered_favs = filter_favs_by_fav_count(user_favs, max_fav_count)
+
+      if filtered_favs.length > 0
+        user_favs_ids = grab_favorites_ids(filtered_favs)
+        user_favs_ids
+
+        track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
+        post_new_playlist(@client, track_ids, search_term)
+
+      else
+        flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{params[:filter]} standards. Poser."
+      end
+
+    else
+      flash[:no_favs] = "Sorry, this user has no favorites. What a hipster!"
     end
   end
 
@@ -144,7 +156,7 @@ get '/auth' do
 end
 
 get '/soundcloud'do
-redirect "http://www.soundcloud.com"
+  redirect "http://www.soundcloud.com"
 end
 
 get '/logout' do
