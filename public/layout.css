@@ -123,7 +123,6 @@ a:link {
     height: 20px;
     padding: 10px 5px;
     float: left;    
-    font: 14px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
     background: #eee;
     border-radius: 3px 0 0 3px;      
@@ -139,18 +138,21 @@ a:link {
  color: #999;
  font-weight: normal;
  font-style: italic;
+ font-size: 12px;
 }
 
 .form-wrapper input:-moz-placeholder {
     color: #999;
     font-weight: normal;
     font-style: italic;
+    font-size: 12px;
 }
 
 .form-wrapper input:-ms-input-placeholder {
     color: #999;
     font-weight: normal;
     font-style: italic;
+    font-size: 12px;
 }    
 
 /* Form submit button */
@@ -208,4 +210,16 @@ a:link {
  width: 240px;
  overflow: hidden;
  border: 1px solid #ccc;
+}
+
+#instructions {
+    margin: auto;
+    display: block;
+    float: left;
+    padding: 0px 222px 0px 2px;
+}
+
+select {
+font-family: Walkway_SemiBold;
+font-size: 0.8em;
 }
