@@ -14,7 +14,7 @@
 	<%= flash[:no_filtered_favs] %>
 	<div class="column_1">
 		<h4 id="track_stats">Current Track Stats:</h4>
-		<p>Banjo Austin four loko, vinyl trust fund cray jean shorts Williamsburg Helvetica authentic umami viral ethical. Actually Helvetica gentrify, locavore freegan ennui pickled. Wayfarers stumptown swag, single-origin coffee disrupt +1 tofu Blue Bottle Neutra art party scenester blog. Jean shorts vegan Pitchfork distillery before they sold out, occupy asymmetrical Brooklyn church-key flexitarian semiotics meh fingerstache. Food truck skateboard shabby chic asymmetrical, letterpress authentic plaid McSweeney's seitan fixie 8-bit sriracha gluten-free Bushwick swag. Wolf cornhole ethical, Odd Future polaroid salvia meh street art vinyl keytar McSweeney's pickled. Semiotics Intelligentsia Terry Richardson, swag Cosby sweater try-hard shabby chic twee farm-to-table DIY ethical.</p>
+		<p id="info">Banjo Austin four loko, vinyl trust fund cray jean shorts Williamsburg Helvetica authentic umami viral ethical. Actually Helvetica gentrify, locavore freegan ennui pickled. Wayfarers stumptown swag, single-origin coffee disrupt +1 tofu Blue Bottle Neutra art party scenester blog. Jean shorts vegan Pitchfork distillery before they sold out, occupy asymmetrical Brooklyn church-key flexitarian semiotics meh fingerstache. Food truck skateboard shabby chic asymmetrical, letterpress authentic plaid McSweeney's seitan fixie 8-bit sriracha gluten-free Bushwick swag. Wolf cornhole ethical, Odd Future polaroid salvia meh street art vinyl keytar McSweeney's pickled. Semiotics Intelligentsia Terry Richardson, swag Cosby sweater try-hard shabby chic twee farm-to-table DIY ethical.</p>
 	</div>
 	<div class="column_2">
 		<h4 id="directions">Discover an artist and hipsterize their favorite tracks!</h4>
@@ -31,7 +31,7 @@
         <button type="submit">Search</button>
     </form>
 		<div id='player'>
-			<iframe class='iframe' width='100%' height='465' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=<%= @last_playlist_uri %>'></iframe>
+			<iframe class='iframe' id='sc-widget' width='100%' height='465' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=<%= @last_playlist_uri %>'></iframe>
 		</div>
 
 	</div>
