@@ -1,13 +1,13 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-require 'dotenv'
 require 'soundcloud'
 
 begin 
+  require 'dotenv'
   Dotenv.load(".env")
 rescue
-  
+
 end
 
 
