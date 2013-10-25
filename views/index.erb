@@ -2,6 +2,10 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="layout.css" media="screen"/>
+	<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="javascripts/track_info.js"></script>
+
 	<title>Dirty Hipster</title>
 </head>
 
@@ -25,7 +29,7 @@
 			<li><a href="#">tours</a></li>
 			<li><a href="#">discography</a></li>
 		</ul>
-		<p>Banjo Austin four loko, vinyl trust fund cray jean shorts Williamsburg Helvetica authentic umami viral ethical. Actually Helvetica gentrify, locavore freegan ennui pickled. Wayfarers stumptown swag, single-origin coffee disrupt +1 tofu Blue Bottle Neutra art party scenester blog. Jean shorts vegan Pitchfork distillery before they sold out, occupy asymmetrical Brooklyn church-key flexitarian semiotics meh fingerstache. Food truck skateboard shabby chic asymmetrical, letterpress authentic plaid McSweeney's seitan fixie 8-bit sriracha gluten-free Bushwick swag. Wolf cornhole ethical, Odd Future polaroid salvia meh street art vinyl keytar McSweeney's pickled. Semiotics Intelligentsia Terry Richardson, swag Cosby sweater try-hard shabby chic twee farm-to-table DIY ethical.</p>
+		<p id="info"></p>
 	</div>
 	<div class="column_2">
 		<form method='POST' action='/search' class="form-wrapper cf">
@@ -35,7 +39,7 @@
 
 <!--w.soundcloud part creates the widget, last_playlist_uri is the last playlist created by the user-->
 	<div id='player'>
-	<iframe class='iframe' width='100%' height='465' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=<%= @last_playlist_uri %>'></iframe>
+	<iframe class='iframe' id='sc-widget' width='100%' height='465' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=<%= @last_playlist_uri %>'></iframe>
 	</div>
 
 	<p>Quinoa bitters pickled, blog Odd Future mlkshk cornhole keffiyeh mustache. 90's McSweeney's viral Tonx banh mi. Next level chambray leggings, mustache Odd Future hashtag retro umami distillery PBR&B Carles lomo cardigan master cleanse. Sriracha retro mumblecore occupy mixtape locavore, church-key Godard keytar meh 90's actually. Messenger bag before they sold out paleo skateboard, brunch Tumblr Thundercats sustainable Echo Park chambray ugh Marfa. Banh mi plaid aesthetic High Life dreamcatcher. Master cleanse gentrify food truck, letterpress Cosby sweater PBR wolf Carles pop-up American Apparel Tonx Thundercats iPhone.</p>

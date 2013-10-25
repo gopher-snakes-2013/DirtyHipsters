@@ -8,6 +8,8 @@ Dotenv.load(".env")
 set :database, 'sqlite:///dev.db'
 enable :sessions
 
+CLIENT = ""
+
 helpers do
   def client_creator
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
