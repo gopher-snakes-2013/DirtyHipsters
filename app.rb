@@ -96,7 +96,6 @@ get '/' do
     if search_submitted?
       user_favs = collect_user_favorited_tracks(session[:searched_user_id])
       filtered_favs = filter_favs_by_fav_count(user_favs, session[:max_fav_count])
-      p filtered_favs
       user_favs_ids = grab_favorites_ids(filtered_favs)
       track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
       post_new_playlist(@client, track_ids)
