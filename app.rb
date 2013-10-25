@@ -4,7 +4,12 @@ require 'sinatra/flash'
 require 'dotenv'
 require 'soundcloud'
 
-Dotenv.load(".env")
+begin 
+  Dotenv.load(".env")
+rescue
+  
+end
+
 
 set :database, 'sqlite:///dev.db'
 enable :sessions
@@ -75,15 +80,15 @@ helpers do
   def filter_favs_by_fav_count(fav_array, fav_max_count)
     filtered_favs = []
     if fav_array.length > 0
-        fav_array.each do |favorite|
-            if favorite.favoritings_count < fav_max_count
-              filtered_favs << favorite
-            end
+      fav_array.each do |favorite|
+        if favorite.favoritings_count < fav_max_count
+          filtered_favs << favorite
         end
+      end
     else
       flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
     end
-      return filtered_favs
+    return filtered_favs
   end
 
 end
@@ -156,7 +161,7 @@ get '/auth' do
 end
 
 get '/soundcloud'do
-  redirect "http://www.soundcloud.com"
+redirect "http://www.soundcloud.com"
 end
 
 get '/logout' do
