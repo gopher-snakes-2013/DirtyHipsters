@@ -15,6 +15,7 @@ group :development, :test do
   gem 'capybara'
   gem 'jasmine'
   gem 'sqlite3'
+  gem 'pry'
 end
 
 group :production do
