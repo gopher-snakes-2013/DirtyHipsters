@@ -53,13 +53,36 @@ helpers do
     client.get('/me').username
   end
 
-  def post_new_playlist(client, track_ids)
+  def post_new_playlist(client, track_ids, query)
     client.post('/playlists', :playlist => {
-      :title => 'Favorites',
+      :title => 'DirtyHipster.co - ' + query + ' inspired playlist',
       :sharing => 'public',
       :tracks => track_ids
       })
   end
+
+  def grab_hipster_filter_val(value)
+    case value
+    when "clean"
+      fav_max_num = 50000
+    when "scruffy"
+      fav_max_num = 5000
+    when "dirty"
+      fav_max_num = 1000
+    end
+    return fav_max_num
+  end
+
+  def filter_favs_by_fav_count(fav_array, fav_max_count)
+    filtered_favs = []
+    fav_array.each do |favorite|
+      if favorite.favoritings_count < fav_max_count
+        filtered_favs << favorite
+      end
+    end
+    return filtered_favs
+  end
+
 end
 
 get '/' do
@@ -70,13 +93,14 @@ get '/' do
 
     #dynamic playlist creation
     fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
-    post_new_playlist(@client, fav_ids_array_of_hashes)
+    post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
 
     if search_submitted?
       user_favs = collect_user_favorited_tracks(session[:searched_user_id])
-      user_favs_ids = grab_favorites_ids(user_favs)
+      filtered_favs = filter_favs_by_fav_count(user_favs, session[:max_fav_count])
+      user_favs_ids = grab_favorites_ids(filtered_favs)
       track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
-      post_new_playlist(@client, track_ids)
+      post_new_playlist(@client, track_ids, session[:query])
     end
 
     #grabs uri for the iframe widget
@@ -89,14 +113,22 @@ end
 
 post '/search' do
   client = client_creator
+
+  #grabs value from hipster filter
+  max_fav_count = grab_hipster_filter_val(params[:filter])
+  session[:max_fav_count] = max_fav_count
+
   #searches through soundcloud for us
   search_term = params[:query]
+  session[:query] = params[:query]
+
   searched_users_array = client.get('/users', :q => search_term)
   searched_users_array.each do |user|
     if user.username == search_term
       session[:searched_user_id] = user.id
     end
   end
+
   redirect '/'
 end
 
