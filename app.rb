@@ -3,14 +3,11 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'dotenv'
 require 'soundcloud'
-require 'sinatra/flash'
 
 Dotenv.load(".env")
 
 set :database, 'sqlite:///dev.db'
 enable :sessions
-
-CLIENT = ""
 
 helpers do
   def client_creator
