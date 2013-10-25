@@ -98,8 +98,8 @@ get '/' do
   if logged_in?
     #this is how dirtyhipster knows who's logged in
     @client = set_active_client(session[:user_token])
-    client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
 
+    client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
     #dynamic playlist creation
     fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
     post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
@@ -131,18 +131,20 @@ post '/search' do
   end
 
   if search_submitted?
-    p user_favs = collect_user_favorited_tracks(session[:searched_user_id])
+    user_favs = collect_user_favorited_tracks(session[:searched_user_id])
+
     if user_favs.length > 0
-      p "salar sucks"
       filtered_favs = filter_favs_by_fav_count(user_favs, max_fav_count)
+
       if filtered_favs.length > 0
-        p "daniel sucks"
         user_favs_ids = grab_favorites_ids(filtered_favs)
         track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
         post_new_playlist(@client, track_ids, search_term)
+
       else
         flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{params[:filter]} standards. Poser."
       end
+
     else
       flash[:no_favs] = "Sorry, this user has no favorites. What a hipster!"
     end
