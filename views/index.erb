@@ -21,11 +21,12 @@
 	</div>
 	<div class="column_2">
 		<form method='POST' action='/search' class="form-wrapper cf">
+		<p id="instructions">Choose your level of hipster:</p>
         <div class="styled-select">
         <select name='filter'>
-					<option value='clean'>Clean</option>
-					<option value='scruffy'>Scruffy</option>
-					<option value='dirty'>Dirty</option>
+					<option id='filters' value='clean'>Clean</option>
+					<option id='filters' value='scruffy'>Scruffy</option>
+					<option id='filters' value='dirty'>Dirty</option>
         </select>
       </div>
         <input name="query" type="text" placeholder="Search username of artist..." required>
