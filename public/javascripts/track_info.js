@@ -19,7 +19,7 @@ $(document).ready(function() {
 		var genre = currentTrack.genre;
 		return checkAttribute(genre)
 	}
-	
+
 	function grabCurrentTrackBpm(currentTrack) {
 		var bpm = currentTrack.bpm;
 		return checkAttribute(bpm)
@@ -27,11 +27,11 @@ $(document).ready(function() {
 	function grabCurrentTrackFavCount(currentTrack) {
 		var fav_count = currentTrack.favoritings_count;
 		return fav_count;
-	}	
+	}
 	function grabCurrentTrackDesc(currentTrack) {
 		var description = currentTrack.description;
 		return checkAttribute(description)
-	}	
+	}
 
 	function grabCurrentTrackReleaseYr(currentTrack) {
 		var releaseYr = currentTrack.release_year;
