@@ -8,7 +8,7 @@
 	src: url('Walkway_SemiBold.ttf');
 }
 
-h1 {
+#welcome_title {
 	font-family: HoneyScript;
 	text-align: center;
 	font-size: 450%;
