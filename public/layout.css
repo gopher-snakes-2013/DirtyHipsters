@@ -86,13 +86,13 @@ a:link {
 .column_1 {
   font-family: Walkway_SemiBold;
   float:left;
-  max-width: 50%;
+  max-width: 45%;
 }
 
 .column_2 {
   font-family: Walkway_SemiBold;
   float:right;
-  max-width: 45%;
+  max-width: 55%;
 }
 
 .cf:before, .cf:after{
