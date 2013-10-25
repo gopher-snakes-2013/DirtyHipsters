@@ -46,12 +46,18 @@ $(document).ready(function() {
 	widget.bind(scEvent.PLAY, function(){
 		widget.getCurrentSound(function(currentSound){
 			$(".column_1 #info").html(
-				"<span>Tags: <br/>"+grabCurrentTrackTags(currentSound)+" </span><br/>"
-				+"<br/><span>Genre: "+grabCurrentTrackGenre(currentSound)+" </span><br/>"
-				+"<br/><span>Release Year: "+grabCurrentTrackReleaseYr(currentSound)+" </span><br/>"
-				+"<br/><span>BPM: "+grabCurrentTrackBpm(currentSound)+" </span><br/>"
-				+"<br/><span>Favorited Count: "+grabCurrentTrackFavCount(currentSound)+" </span><br/>"
-				+"<br/><span>Description: "+grabCurrentTrackDesc(currentSound)+" </span><br/>"
+				// "<span>Tags: <br/>"+grabCurrentTrackTags(currentSound)+" </span><br/>"
+				// +"<br/><span>Genre: "+grabCurrentTrackGenre(currentSound)+" </span><br/>"
+				// +"<br/><span>Release Year: "+grabCurrentTrackReleaseYr(currentSound)+" </span><br/>"
+				// +"<br/><span>BPM: "+grabCurrentTrackBpm(currentSound)+" </span><br/>"
+				// +"<br/><span>Favorited Count: "+grabCurrentTrackFavCount(currentSound)+" </span><br/>"
+				// +"<br/><span>Description: "+grabCurrentTrackDesc(currentSound)+" </span><br/>"
+				"<span>Tags: </span><br/><p>"+grabCurrentTrackTags(currentSound)+"</p>"
+				+"<span>Genre: </span><p>"+grabCurrentTrackGenre(currentSound)+"</p>"
+				+"<span>Release Year: </span><p>"+grabCurrentTrackReleaseYr(currentSound)+"</p>"
+				+"<span>BPM: </span><p>"+grabCurrentTrackBpm(currentSound)+"</p>"
+				+"<span>Favorited Count: </span><p>"+grabCurrentTrackFavCount(currentSound)+"</p>"
+				+"<span>Description: </span><p>"+grabCurrentTrackDesc(currentSound)+"</p>"
 				);
 		})
 	})
