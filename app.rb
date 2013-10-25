@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
 require 'dotenv'
 require 'soundcloud'
 
@@ -97,10 +98,18 @@ get '/' do
 
     if search_submitted?
       user_favs = collect_user_favorited_tracks(session[:searched_user_id])
-      filtered_favs = filter_favs_by_fav_count(user_favs, session[:max_fav_count])
-      user_favs_ids = grab_favorites_ids(filtered_favs)
-      track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
-      post_new_playlist(@client, track_ids, session[:query])
+      if user_favs.length > 0
+        filtered_favs = filter_favs_by_fav_count(user_favs, session[:max_fav_count])
+        if filtered_favs.length > 0
+          user_favs_ids = grab_favorites_ids(filtered_favs)
+          track_ids = make_fav_ids_array_of_hashes(user_favs_ids)
+          post_new_playlist(@client, track_ids, session[:query])
+        else
+          flash[:no_filtered_favs] = "Sorry, this user has no favorites that match your #{session[:query]} standards. Poser."
+        end
+      else
+        flash[:no_favs] = "Sorry, this user has no favorites. What a hipster!"
+      end
     end
 
     #grabs uri for the iframe widget
@@ -136,7 +145,7 @@ get '/login' do
   # create client object with app credentials
   client = client_creator
   redirect client.authorize_url()
-end
+endw
 
 get '/auth' do
   client = client_creator
