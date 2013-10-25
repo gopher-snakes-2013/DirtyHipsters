@@ -33,7 +33,7 @@ body {
 } 
 
 #navbar ul li a:hover { 
-	color: #000; 
+	color: #07445E; 
 	background-color: #fff; 
 } 
 
@@ -168,18 +168,18 @@ a:link {
   width: 110px;
   font: 15px/40px 'Walkway_SemiBold';
   color: #fff;
-  background: #0ECCBA;
+  background: #30687F;
   border-radius: 0 3px 3px 0;      
   text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
 }   
 
 .form-wrapper button:hover{     
-  background: #07675E;
+  background: #0F94CC;
 }   
 
 .form-wrapper button:active,
 .form-wrapper button:focus{   
-  background: #11FFE9;
+  background: #5FCFFF;
   outline: 0;   
 }
 
@@ -188,18 +188,18 @@ a:link {
   position: absolute;
   border-width: 8px 8px 8px 0;
   border-style: solid solid solid none;
-  border-color: transparent #0ECCBA transparent;
+  border-color: transparent #30687F transparent;
   top: 12px;
   left: -6px;
 }
 
 .form-wrapper button:hover:before{
-  border-right-color: #07675E;
+  border-right-color: #0F94CC;
 }
 
 .form-wrapper button:focus:before,
 .form-wrapper button:active:before{
-  border-right-color: #07675E;
+  border-right-color: #5FCFFF;
 }      
 
 .form-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
