@@ -15,9 +15,9 @@ group :development, :test do
   gem 'rspec'
   gem 'capybara'
   gem 'jasmine'
-  gem 'sqlite3'
+  
 end
 
 group :production do
-  gem 'pg'
+
 end

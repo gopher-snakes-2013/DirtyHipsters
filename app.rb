@@ -10,8 +10,6 @@ rescue
 
 end
 
-
-set :database, 'sqlite:///dev.db'
 enable :sessions
 
 helpers do
