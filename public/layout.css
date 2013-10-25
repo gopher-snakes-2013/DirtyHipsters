@@ -8,6 +8,11 @@
 	src: url('Walkway_SemiBold.ttf');
 }
 
+@font-face {
+  font-family: Mido;
+  src: url('Mido.otf');
+}
+
 body {
   font-size: 16px;
 }
@@ -253,4 +258,10 @@ select {
   float:right;
   font-weight: bold;
   color: #E82C0C;
+}
+
+span {
+  font-family: Mido;
+  text-decoration: underline;
+  font-weight: bold;
 }
