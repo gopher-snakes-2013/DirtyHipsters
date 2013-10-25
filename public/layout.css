@@ -244,3 +244,13 @@ select {
   font-style: italic;
   font-size: xx-large;
 }
+
+.flash {
+  margin: auto;
+  padding: 0px 40px 0px 40px;
+  font-family: Walkway_SemiBold;
+  display: block;
+  float:right;
+  font-weight: bold;
+  color: #E82C0C;
+}
