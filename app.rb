@@ -7,8 +7,6 @@ if Sinatra::Application.development?
   Dotenv.load(".env")
 end
 
-end
-
 enable :sessions
 
 helpers do
