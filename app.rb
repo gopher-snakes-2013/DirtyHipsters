@@ -13,7 +13,7 @@ helpers do
   def client_creator
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
       :client_secret => ENV['SOUNDCLOUD_SECRET'],
-      :redirect_uri => 'http://localhost:9393/auth')
+      :redirect_uri => 'http://dirtyhipster.herokuapp.com/auth')
   end
 
   def logged_in?
