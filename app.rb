@@ -2,10 +2,10 @@ require 'sinatra'
 require 'sinatra/flash'
 require 'soundcloud'
 
-begin
+if Sinatra::Application.development?
   require 'dotenv'
   Dotenv.load(".env")
-rescue
+end
 
 end
 
