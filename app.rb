@@ -13,7 +13,7 @@ helpers do
   def client_creator
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_ID'],
       :client_secret => ENV['SOUNDCLOUD_SECRET'],
-      :redirect_uri => 'http://dirtyhipster.herokuapp.com/auth')
+      :redirect_uri => ENV['CALLBACK_URL'])
   end
 
   def logged_in?
@@ -92,9 +92,18 @@ get '/' do
   if logged_in?
     #this is how dirtyhipster knows who's logged in
     @client = set_active_client(session[:user_token])
+    client_playlists = @client.get('/me/playlists')
 
+    if client_playlists.length == 0
+      client_favorites_ids = grab_favorites_ids(collect_client_favorited_tracks)
+      #dynamic playlist creation
+      fav_ids_array_of_hashes = make_fav_ids_array_of_hashes(client_favorites_ids)
+      post_new_playlist(@client, fav_ids_array_of_hashes, get_client_username(@client))
+      client_playlists = @client.get('/me/playlists')
+    end
+
+    @last_playlist_uri = client_playlists.first.uri
     #grabs uri for the iframe widget
-    @last_playlist_uri = @client.get('/me/playlists').first.uri
     erb :index
   else
     erb :login
